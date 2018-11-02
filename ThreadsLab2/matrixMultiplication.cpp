@@ -35,7 +35,7 @@ void matrixMultiplication::writeOutputFile() {
     }
     outF << "END2  " <<t2 << " ms" <<endl;
 
-
+    outF.close();
 }
 
 /**
@@ -102,9 +102,11 @@ void matrixMultiplication::readFileMult(string filename) {
             ss.str(string());
             //   cout << endl;
         }
-    } else {
-        // cout << "File is not found!";
-        return;
+    } else{
+        ofstream outF ("output.txt");
+        outF << "An error has occured while reading the input.";
+        outF.close();
+        exit(EXIT_SUCCESS);
     }
 
 }
@@ -264,6 +266,12 @@ void matrixMultiplication::matrixMult2() {
  */
 void matrixMultiplication::begin(string filename) {
     this -> readFileMult(std::move(filename));
+    if(sizeA[1] != sizeB[0]) {
+        ofstream outF ("output.txt");
+        outF << "Input is invalid!";
+        outF.close();
+        exit(EXIT_SUCCESS);
+    }
     this -> matrixMult1();
     this -> matrixMult2();
     this -> writeOutputFile();

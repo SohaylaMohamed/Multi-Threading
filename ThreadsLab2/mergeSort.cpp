@@ -35,8 +35,8 @@ void mergeSort::readFileMerge(string filename) {
         }
         //   cout << endl;
     } else {
-        //   cout << "File was not found" << endl;
-        return;
+        cout << "File was not found" << endl;
+        exit(EXIT_SUCCESS);
     }
 }
 
