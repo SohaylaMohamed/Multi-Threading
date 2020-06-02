@@ -12,12 +12,12 @@ int main() {
     switch (n){
         case 1: {
             matrixMultiplication m;
-            m.begin("input.txt");
+            m.begin("input-Mult.txt");
             break;
         }
         case 2: {
             mergeSort m;
-            m.begin("input.txt");
+            m.begin("input-Merge.txt");
             break;
         }
         default: cout << "Invalid Choice";

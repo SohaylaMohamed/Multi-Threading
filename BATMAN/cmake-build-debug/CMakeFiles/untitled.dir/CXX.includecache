@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sohayla/CLionProjects/BATMAN/batMonitor.cpp
+batMonitor.h
+/home/sohayla/CLionProjects/BATMAN/batMonitor.h
+
+/home/sohayla/CLionProjects/BATMAN/batMonitor.h
+iostream
+-
+condition_variable
+-
+unistd.h
+-
+

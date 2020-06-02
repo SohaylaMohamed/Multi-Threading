@@ -2,6 +2,7 @@
 // Created by sohayla on 01/11/18.
 //
 #include <utility>
+#include <unistd.h>
 #include "matrixMultiplication.h"
 /**
  * this class contains the functions neccessary for doing multi-threaded matrix multiplication
@@ -53,6 +54,9 @@ void matrixMultiplication::readFileMult(string filename) {
         //the size of the first matrix
         getline(multF, line);
         int temp;
+        if(line.empty()) {
+            getline(multF, line);
+        }
         stringstream ss(line);
         while(ss >> temp ){
             sizeA.push_back(temp);
@@ -63,6 +67,12 @@ void matrixMultiplication::readFileMult(string filename) {
         //read the first matrix elements
         ss.clear();
         ss.str(string());
+        if(sizeA.empty()) {
+            ofstream outF("output.txt");
+            outF << "Input file is not valid!"<<endl;
+            outF.close();
+            exit(EXIT_SUCCESS);
+        }
         for(int i =0; i < sizeA[0]; i++) {
             getline(multF, line);
             ss << line;
@@ -79,6 +89,9 @@ void matrixMultiplication::readFileMult(string filename) {
 
         //get the size of the second matrix
         getline(multF,line);
+        if(line.empty()) {
+            getline(multF, line);
+        }
         ss << line;
         while(ss >> temp ){
             sizeB.push_back(temp);
@@ -89,6 +102,12 @@ void matrixMultiplication::readFileMult(string filename) {
         //get the elements of the second matrix
         ss.clear();
         ss.str(string());
+        if(sizeB.empty()) {
+            ofstream outF("output.txt");
+            outF << "Input file is not valid!"<<endl;
+            outF.close();
+            exit(EXIT_SUCCESS);
+        }
         for(int i =0; i < sizeB[0]; i++) {
             getline(multF, line);
             ss << line;
@@ -101,10 +120,18 @@ void matrixMultiplication::readFileMult(string filename) {
             ss.clear();
             ss.str(string());
             //   cout << endl;
+            if(a.empty() || b.empty()) {
+                if(sizeA.empty()) {
+                    ofstream outF("output.txt");
+                    outF << "Input file is not valid!"<<endl;
+                    outF.close();
+                    exit(EXIT_SUCCESS);
+                }
+            }
         }
     } else{
         ofstream outF ("output.txt");
-        outF << "An error has occured while reading the input.";
+        outF << "An error has occured while reading the input."<<endl;
         outF.close();
         exit(EXIT_SUCCESS);
     }
@@ -168,7 +195,7 @@ void* matrixMultiplication::computeARow() {
 void* matrixMultiplication::computeAnElement() {
        // c.lock();
         int row = m1_row;
-        int col = m1_col;
+        int col = m1_col++;
         //gets a the row from the first matrix
         vector<int> temp = a[row];
         int sum = 0;
@@ -178,7 +205,6 @@ void* matrixMultiplication::computeAnElement() {
             sum += temp[i]*b[i][col];
         }
         //increment the column index
-        m1_col++;
         //if column index reached is out of bounds
         //then we need to increment the row index
         //and re-inetialise the column index to 0
@@ -217,7 +243,9 @@ void matrixMultiplication::matrixMult1() {
         //create all the threads
         for (int i = 0; i < numOfThreads ; i++) {
                 pthread_create(&threads[i], nullptr,&matrixMultiplication::computeAnElementHelper, this);
-            }
+            sleep(1/10000000000000);
+
+        }
         //join all the threads created
         for (int i = 0; i < numOfThreads; i++)
                 pthread_join(threads[i], nullptr);
@@ -249,6 +277,7 @@ void matrixMultiplication::matrixMult2() {
         //create all the threads
         for (int i = 0; i < numOfThreads ; i++) {
             pthread_create(&threads[i], nullptr,&matrixMultiplication::computeARowHelper, this);
+            sleep(1/10000000000000);
         }
         //join all the threads created
         for (int i = 0; i < numOfThreads; i++)

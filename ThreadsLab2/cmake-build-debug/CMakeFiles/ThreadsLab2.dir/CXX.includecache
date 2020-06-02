@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sohayla/CLionProjects/Multi-Threading/ThreadsLab2/matrixMultiplication.cpp
+utility
+-
+unistd.h
+-
+matrixMultiplication.h
+/home/sohayla/CLionProjects/Multi-Threading/ThreadsLab2/matrixMultiplication.h
+
+/home/sohayla/CLionProjects/Multi-Threading/ThreadsLab2/matrixMultiplication.h
+iostream
+-
+string
+-
+sstream
+-
+fstream
+-
+vector
+-
+pthread.h
+-
+mutex
+-
+

@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread -g   CMakeFiles/ThreadsLab2.dir/main.cpp.o CMakeFiles/ThreadsLab2.dir/matrixMultiplication.cpp.o CMakeFiles/ThreadsLab2.dir/mergeSort.cpp.o  -o ThreadsLab2 
